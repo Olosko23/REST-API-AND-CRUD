@@ -1,16 +1,18 @@
 import express, { query } from "express";
 import mysql from "mysql2";
 import cors from "cors";
+import dotenv from 'dotenv';
 
 //used mysql2 because with the current setting mysql produces auth error
 
 const app = express();
+dotenv.config();
 
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "35537987",
-  database: "test",
+  host: "process.env.HOST",
+  user: "process.env.USER",
+  password: "process.env.PASSWORD",
+  database: "process.env.DATABASE",
 });
 
 app.use(express.json())
@@ -67,6 +69,6 @@ app.put("/books/:id", (req, res) => {
   });
 });
 
-app.listen(8800, () => {
+app.listen(process.env.PORT, () => {
   console.log("Connected to backend already");
 });
